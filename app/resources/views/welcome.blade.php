@@ -160,6 +160,10 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div id="user-container" class="mt-6">
+                            <!-- User data will be appended here -->
+                        </div>
                     </main>
 
                     <footer class="py-16 text-center text-sm text-black dark:text-white/70">
@@ -168,5 +172,32 @@
                 </div>
             </div>
         </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                fetch('https://random-data-api.com/api/v2/users?size=100')
+                    .then(response => response.json())
+                    .then(data => {
+                        const userContainer = document.getElementById('user-container');
+                        data.forEach(user => {
+                            const userDiv = document.createElement('div');
+                            userDiv.classList.add('user');
+                            userDiv.innerHTML = `
+                                <p>Name: ${user.first_name ?? 'N/A'} ${user.last_name ?? 'N/A'}</p>
+                                <p>Username: ${user.username ?? 'N/A'}</p>
+                                <p>Email: ${user.email ?? 'N/A'}</p>
+                                <p>Gender: ${user.gender ?? 'N/A'}</p>
+                                <p>Phone: ${user.phone_number ?? 'N/A'}</p>
+                                <p>Address: ${user.address?.street_address ?? 'N/A'}, ${user.address?.city ?? 'N/A'}, ${user.address?.state ?? 'N/A'}, ${user.address?.country ?? 'N/A'}</p>
+                                <p>Employment: ${user.employment?.title ?? 'N/A'} (${user.employment?.key_skill ?? 'N/A'})</p>
+                                <p>Subscription: ${user.subscription?.plan ?? 'N/A'} (${user.subscription?.status ?? 'N/A'})</p>
+                                <img src="${user.avatar}" alt="Avatar of ${user.first_name}">
+                            `;
+                            console.log(userDiv);
+                            userContainer.appendChild(userDiv);
+                        });
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
+            });
+        </script>
     </body>
 </html>
