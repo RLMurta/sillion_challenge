@@ -2,7 +2,9 @@
 ## Como rodar:
 
 No terminal entre na pasta app utilizando
-> cd app
+> cd app  
+
+
 E então dependendo se deseja rodar pelo Docker ou direto pelo PHP utilize o código referente abaixo.
 
 Pelo Docker:
